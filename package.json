@@ -1,0 +1,24 @@
+{
+  "name": "ethers-api",
+  "version": "1.0.0",
+  "description": "API-REST for ethersjs in NextJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sttarMicroTech/ethers-api.git"
+  },
+  "keywords": [
+    "ethers",
+    "api",
+    "crypto"
+  ],
+  "author": "ratts13",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sttarMicroTech/ethers-api/issues"
+  },
+  "homepage": "https://github.com/sttarMicroTech/ethers-api#readme"
+}
