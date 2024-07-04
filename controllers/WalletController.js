@@ -17,16 +17,18 @@ class Wallet {
     /**
      * Cria uma nova carteira dentro
      * da blockchain selecionada pelo provedor
-     * @returns {Object}
+     * @returns {{provider: object, address: string, publicKey: string, fingerprint: string, parentFingerprint: string, mnemonic: {phrase: string, password: string, wordlist: {locale: string}, entropy: string }, chainCode: string, path: string, index: number, depth: number, pk: string}}
      */
     createWallet() {
-        return ethers.Wallet.createRandom(this.wallet);
+        var createdWallet = ethers.Wallet.createRandom(this.wallet);
+        createdWallet.pk = createdWallet.privateKey;
+        return createdWallet;
     }
     
     /**
      * 
      * @param {string} pkOrMnemonic - Chave privada ou Mnemonica
-     * @returns {Object} 
+     * @returns {{provider: object, address: string}} 
      */
     recoverWallet(pkOrMnemonic) {
         var myWallet = pkOrMnemonic.indexOf(" ") !== -1
@@ -40,13 +42,13 @@ class Wallet {
      * Obtem o saldo a partir do endereço da
      * carteira dentro do provedor
      * @param {string} address - Endereço da carteira
-     * @returns {Object}
+     * @returns {{balance: string, wallet: string}}
      */
     async getBalance(address) {
         const balance = await this.wallet.getBalance(address);
         return {
-            balanceInWei: balance,
-            balanceInEth: ethers.formatEther(balance)
+            balance: ethers.formatEther(balance),
+            wallet: address
         }
     }
     
@@ -54,7 +56,7 @@ class Wallet {
      * Verifica se uma carteira
      * é valida ou não
      * @param {string} address - endereço da carteira
-     * @returns {Object}
+     * @returns {boolean}
      */
     addressIsValid(address) {
         return ethers.isAddress(address);
@@ -64,10 +66,11 @@ class Wallet {
      * Construtor de trasações entre carteiras 
      * da mesma rede do provedor.
      * @param {string} toWallet - endereço da carteira de envio
-     * @param {float} amountInEth - quantidade a ser enviado  
-     * @returns {Object}
+     * @param {string} amountInEth - quantidade a ser enviado  
+     * @param {string} pk - chave de assinatura privada
+     * @returns {Promise<{to: string, value: bigint}>}
      */
-    async buildTransaction(toWallet, amountInEth) {
+    async buildTransaction(toWallet, amountInEth, pk) {
         const amount = ethers.parseEther(amountInEth);
     
         const tx = {
@@ -75,10 +78,10 @@ class Wallet {
             value: amount
         }
     
-        const feeData = await provider.getFeeData();
+        const feeData = await this.wallet.getFeeData();
         const txFee = 21000n * feeData.gasPrice;//default gas limit para transferências
-    
-        const balance = await provider.getBalance(myWallet.address);
+        var myWallet = this.recoverWallet(pk);
+        const balance = await this.wallet.getBalance(myWallet.address);
         if (balance < (amount + txFee)) {
             return false;
         }
@@ -89,12 +92,13 @@ class Wallet {
     /**
      * Envia uma transação para outra 
      * carteira da mesma rede selecionada
-     * @param {string} tx - Transação contruida pelo metodo buildTransaction()
+     * @param {any} tx - Transação contruida pelo metodo buildTransaction()
+     * @param {string} pk - Chave privada para assinar a trasação
      * @returns {Object}
      */
-    sendTransaction(tx, pk) {
+    async sendTransaction(tx, pk) {
         var myWallet = this.recoverWallet(pk);
-        return myWallet.sendTransaction(tx);
+        return await myWallet.sendTransaction(tx);
     }
     
     /**

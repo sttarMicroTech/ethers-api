@@ -1,0 +1,18 @@
+meta {
+  name: create-wallet
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/api/create-wallet
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "network": "Binance",
+    "schema": "testnet"
+  }
+}

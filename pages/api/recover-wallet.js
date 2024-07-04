@@ -5,17 +5,17 @@ var utils = new Utils();
 
 export default function (req, res) {
     if (req.method == 'POST') {
-        if (!utils.bodyValidation('create-wallet', req.body).status) {
-            res.json(utils.bodyValidation('create-wallet', req.body));
+        if(!utils.bodyValidation('recover-wallet', req.body).status){
+            res.json(utils.bodyValidation('recover-wallet', req.body));
             return;
         }
 
-        var { network, schema } = req.body;
+        var { network, schema, pk } = req.body;
         var provider = new Wallet(network, schema);
-        var wallet = provider.createWallet();
+        var wallet = provider.recoverWallet(pk);
         return res.json({
             status: true,
-            message: 'Create wallet with success!',
+            message: 'Recover wallet with success!',
             result: wallet
         });
     } else {

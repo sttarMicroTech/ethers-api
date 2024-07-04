@@ -1,8 +1,8 @@
 
 export const providers = {
     "Binance": {
-        "mainet": null,
-        "testnet": "https://data-seed-prebsc-1-s1.binance.org:8545",
+        "mainet": "https://bsc-dataseed.bnbchain.org",
+        "testnet": "https://bsc-testnet-dataseed.bnbchain.org",
         "token": "BNB"
     }
 };

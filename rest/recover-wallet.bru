@@ -1,0 +1,19 @@
+meta {
+  name: recover-wallet
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/recover-wallet
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "network": "Binance",
+    "schema": "testnet",
+    "pk": "game stadium seek hire drum recall toilet debate uniform skirt man ladder"
+  }
+}
