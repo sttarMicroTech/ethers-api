@@ -6,6 +6,14 @@ meta {
 
 post {
   url: http://localhost:3000/api/valid-address
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "network": "Binance",
+    "schema": "testnet",
+    "wallet": "0x8a2FB1f8F6a43b56267d62EF28aA522dCba876Eb"
+  }
 }

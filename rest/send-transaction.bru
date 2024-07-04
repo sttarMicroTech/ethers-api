@@ -5,7 +5,17 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/api/create-wallet
-  body: none
+  url: http://localhost:3000/api/send-transaction
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "network": "Binance",
+    "schema": "testnet",
+    "to": "0x8a2FB1f8F6a43b56267d62EF28aA522dCba876Eb",
+    "value": "0.0001",
+    "pk": "0x31dc05acc0d308460fd1502cb03db16740ebd2885780f1c5ab2ce62124e1a87b"
+  }
 }
