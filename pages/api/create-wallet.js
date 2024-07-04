@@ -1,8 +1,11 @@
-import { createWallet } from "../../controllers/WalletController.js";
+import Wallet from "../../controllers/WalletController.js";
 
 export default function(req, res){
     if(req.method == 'POST'){
-        var wallet = createWallet();
+        console.log(req.body);
+        var { network, schema} = req.body;
+        var provider = new Wallet(network, schema);
+        var wallet = provider.createWallet();
         return res.json({
             status: true,
             message: 'Create wallet with success!',
