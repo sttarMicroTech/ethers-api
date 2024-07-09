@@ -7,7 +7,7 @@ export const providers = {
         "network": {
             "name": "Binance Smart Chain",
             "symbol": "BSC",
-            "icon": "/img/coins/bsc.pg"
+            "icon": "/img/coins/bsc.png"
         }
     }
 };
