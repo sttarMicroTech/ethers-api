@@ -1,7 +1,10 @@
+import { providers } from "../../providers/ServiceProviders.js";
+
 export default function(req, res){
     return res.json({
         status: true,
         message: "API is runnig",
+        suported_networks: providers,
         endpoints: [
             {
                 "name": "Create Wallet",
