@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { providers } from "../providers/ServiceProviders";
+import { providers } from "../providers/ServiceProviders.js";
 
 class Wallet {
     /**
@@ -10,8 +10,7 @@ class Wallet {
      */
     constructor(network, schema = 'testnet'){
         var provider = providers[network];
-        console.log(provider[schema]);
-        this.wallet = new ethers.JsonRpcProvider(provider[schema]);
+        this.wallet = new ethers.JsonRpcProvider(provider.providers[schema]);
     }
 
     /**
