@@ -15,7 +15,7 @@ export default async function (req, res) {
         var balance = await provider.getBalance(wallet);
         return res.json({
             status: true,
-            message: 'Create wallet with success!',
+            message: 'Get balance with success!',
             result: balance
         })
     } else {
