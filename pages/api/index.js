@@ -1,6 +1,7 @@
 import { providers } from "../../providers/ServiceProviders.js";
 
 export default function(req, res){
+    res.setHeader('Cache-Control', `s-maxage=60, stale-while-revalidate`);
     return res.json({
         status: true,
         message: "API is runnig",
