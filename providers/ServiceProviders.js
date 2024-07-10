@@ -8,8 +8,9 @@ export const providers = {
             "icon": "/img/coins/bsc.png"
         },
         "providers": {
-            "mainet": "https://bsc-dataseed.bnbchain.org",
-            "testnet": "https://bsc-testnet-dataseed.bnbchain.org",
+            "mainet": "https://bsc-rpc.publicnode.com",
+            "testnet": "https://bsc-testnet-rpc.publicnode.com",
+            // "testnet": "https://data-seed-prebsc-1-s1.binance.org:8545"
         }
     }
 };

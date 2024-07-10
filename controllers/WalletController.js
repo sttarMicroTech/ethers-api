@@ -11,6 +11,7 @@ class Wallet {
     constructor(network, schema = 'testnet') {
         var provider = providers[network];
         this.wallet = new ethers.JsonRpcProvider(provider.providers[schema]);
+        this.provider = provider;
     }
 
     /**
@@ -48,12 +49,13 @@ class Wallet {
         // const tokens = await this.getTokenBalance(address, 18);
         // const smartContracts = await this.getTokenContracts(address);
 
-        return {
-            balance: ethers.formatEther(balance),
-            wallet: address,
-            // tokens: tokens,
-            // contracts: smartContracts
-        }
+        
+        return [
+            {
+                balance: ethers.formatEther(balance),
+                provider: this.provider
+            }
+        ]
     }
 
     /**
@@ -76,24 +78,31 @@ class Wallet {
     };
 
 
+    /**
+     * Lista de contratos da carteira
+     * @param {string} walletAddress 
+     * @returns {Object}
+     */
     async getTokenContracts(walletAddress) {
         // ethers.zeroPadValue
         // Filtro para eventos de transferência ERC20 para a carteira específica
         const filter = {
-          address: null, // null significa qualquer endereço de contrato
+          address: walletAddress, // null significa qualquer endereço de contrato
           topics: [
             ethers.id("Transfer(address,address,uint256)"), // Identificador do evento de transferência
             null,
-            ethers.zeroPadValue(walletAddress, 32) // Filtra por destinatário
+            null// Filtra por destinatário
           ]
         };
       
         // Recupera logs de eventos
         const logs = await this.wallet.getLogs(filter);
-      
+        
         // Extrai e retorna os endereços dos contratos
         const tokenContracts = [...new Set(logs.map(log => log.address))];
-        return tokenContracts;
+        return {
+            filter, tokenContracts
+        };
       }
 
     /**
