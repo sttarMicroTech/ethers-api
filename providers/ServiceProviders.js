@@ -11,6 +11,24 @@ export const providers = {
             "mainet": "https://bsc-rpc.publicnode.com",
             "testnet": "https://bsc-testnet-rpc.publicnode.com",
             // "testnet": "https://data-seed-prebsc-1-s1.binance.org:8545"
-        }
+        },
+        "suportedTokens": [
+            {
+                "name": "USD Tether",
+                "symbol": "USDT",
+                "contract": {
+                    "mainet": null,
+                    "testnet": "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd"
+                }
+            },
+            {
+                "name": "SttarPay Token",
+                "symbol": "SPT",
+                "contract": {
+                    "mainet": null,
+                    "testnet": "0x42C1258E79a68769B3367138c8A9EA59FDaa2854"
+                }
+            }
+        ]
     }
 };

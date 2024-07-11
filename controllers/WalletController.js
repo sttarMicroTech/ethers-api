@@ -49,16 +49,26 @@ class Wallet {
      */
     async getBalance(address) {
 
-        const balance = await this.wallet.getBalance(address);
-        var data = await this.GatewayConntract.getWalletInfo(address);
+        try {
+            const balance = await this.wallet.getBalance(address);
+            var data = await this.GatewayConntract.getWalletInfo(address);
 
-        return [
-            {
-                balance: ethers.formatEther(balance),
-                provider: this.provider,
-                data
-            }
-        ]
+            return [
+                {
+                    balance: ethers.formatEther(balance),
+                    provider: this.provider,
+                    data
+                }
+            ]
+        } catch (error) {
+            return [
+                {
+                    balance: 0,
+                    provider: null,
+                    message: error.message
+                }
+            ]
+        }
     }
 
     /**
