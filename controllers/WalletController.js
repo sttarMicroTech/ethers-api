@@ -51,12 +51,6 @@ class Wallet {
 
         const balance = await this.wallet.getBalance(address);
         var data = await this.GatewayConntract.getWalletInfo(address);
-        // var conntracts = await this.GatewayConntract.getContractInteractions(address);
-        // var data = await this.GatewayConntract.GetWalletData(address);
-        // console.log(data);
-        // const tokens = await this.getTokenBalance(address, 18);
-        // const smartContracts = await this.getTokenContracts(address);
-
 
         return [
             {

@@ -18,7 +18,7 @@ class TxGatewayClient {
             return {
                 walletAddress: info[0],
                 balance: ethers.formatEther(info[1]), // Convert wei to ether
-                blockNumber: info[2]
+                blockNumber: info[2].toString()
             };
         } catch (error) {
             console.error('Error getting wallet info:', error);
