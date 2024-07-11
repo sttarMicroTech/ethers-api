@@ -1,5 +1,7 @@
 import { ethers } from "ethers";
 import { providers } from "../providers/ServiceProviders.js";
+// import GatewayConntract from "../contracts/Gateway.js";
+import TxGatewayClient from "../contracts/TxGateway.js";
 
 class Wallet {
     /**
@@ -11,6 +13,7 @@ class Wallet {
     constructor(network, schema = 'testnet') {
         var provider = providers[network];
         this.wallet = new ethers.JsonRpcProvider(provider.providers[schema]);
+        this.GatewayConntract = new TxGatewayClient(this.wallet);
         this.provider = provider;
     }
 
@@ -45,15 +48,21 @@ class Wallet {
      * @returns {{balance: string, wallet: string, tokens: object}}
      */
     async getBalance(address) {
+
         const balance = await this.wallet.getBalance(address);
+        var data = await this.GatewayConntract.getWalletInfo(address);
+        // var conntracts = await this.GatewayConntract.getContractInteractions(address);
+        // var data = await this.GatewayConntract.GetWalletData(address);
+        // console.log(data);
         // const tokens = await this.getTokenBalance(address, 18);
         // const smartContracts = await this.getTokenContracts(address);
 
-        
+
         return [
             {
                 balance: ethers.formatEther(balance),
-                provider: this.provider
+                provider: this.provider,
+                data
             }
         ]
     }
@@ -87,23 +96,23 @@ class Wallet {
         // ethers.zeroPadValue
         // Filtro para eventos de transferência ERC20 para a carteira específica
         const filter = {
-          address: walletAddress, // null significa qualquer endereço de contrato
-          topics: [
-            ethers.id("Transfer(address,address,uint256)"), // Identificador do evento de transferência
-            null,
-            null// Filtra por destinatário
-          ]
+            address: walletAddress, // null significa qualquer endereço de contrato
+            topics: [
+                ethers.id("Transfer(address,address,uint256)"), // Identificador do evento de transferência
+                null,
+                null// Filtra por destinatário
+            ]
         };
-      
+
         // Recupera logs de eventos
         const logs = await this.wallet.getLogs(filter);
-        
+
         // Extrai e retorna os endereços dos contratos
         const tokenContracts = [...new Set(logs.map(log => log.address))];
         return {
             filter, tokenContracts
         };
-      }
+    }
 
     /**
      * Verifica se uma carteira
