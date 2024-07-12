@@ -14,8 +14,18 @@ export const providers = {
         },
         "suportedTokens": [
             {
+                "name": "Binance Smart Token",
+                "symbol": "BNB",
+                "default": true,
+                "contract": {
+                    "mainet": null,
+                    "testnet": null
+                }
+            },
+            {
                 "name": "USD Tether",
                 "symbol": "USDT",
+                "default": false,
                 "contract": {
                     "mainet": null,
                     "testnet": "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd"
@@ -24,6 +34,7 @@ export const providers = {
             {
                 "name": "SttarPay Token",
                 "symbol": "SPT",
+                "default": false,
                 "contract": {
                     "mainet": null,
                     "testnet": "0x42C1258E79a68769B3367138c8A9EA59FDaa2854"
