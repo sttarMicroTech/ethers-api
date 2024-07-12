@@ -17,6 +17,7 @@ export const providers = {
                 "name": "Binance Smart Token",
                 "symbol": "BNB",
                 "default": true,
+                "asset": "/img/coins/bsc.png",
                 "contract": {
                     "mainet": null,
                     "testnet": null
@@ -26,6 +27,7 @@ export const providers = {
                 "name": "USD Tether",
                 "symbol": "USDT",
                 "default": false,
+                "asset": "/img/coins/usdt.png",
                 "contract": {
                     "mainet": null,
                     "testnet": "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd"
@@ -35,6 +37,7 @@ export const providers = {
                 "name": "SttarPay Token",
                 "symbol": "SPT",
                 "default": false,
+                "asset": "/img/coins/spt.png",
                 "contract": {
                     "mainet": null,
                     "testnet": "0x42C1258E79a68769B3367138c8A9EA59FDaa2854"
