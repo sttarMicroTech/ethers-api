@@ -23,7 +23,7 @@ class WalletUtils {
             var balance = await this.tokenBalanceCheckerContract.getTokenBalance(walletAddress, tokenContractAddress);
             var token = await this.getTokenDetails(tokenContractAddress);
             // console.log(`Saldo do token: ${balance.toString()}`);
-            balance = ethers.formatUnits(balance, BigInt(token.decimals) ?? 18);
+            balance = ethers.formatUnits(balance, parseInt(token.decimals) ?? 18);
 
             return {
                 status: true,
