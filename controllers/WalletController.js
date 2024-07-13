@@ -175,8 +175,8 @@ class Wallet {
         return await this.wallet.getTransaction(hash);
     }
 
-    async GetTokenDetails(address){
-        return await this.Tokenize.getTokenDetails(address);
+    async GetTokenDetails(tokenAddress){
+        return await this.Tokenize.getTokenDetails(tokenAddress);
     } 
 
     async GetTokenBalance(contractAddress, walletAddress){
@@ -186,6 +186,10 @@ class Wallet {
     async GetTokenTranfers(walletAddress){
         return await this.Tokenize.getTokenTransfers(walletAddress);
     } 
+
+    async SendToken(toAddress, value, privateKey, contractAddress){
+        return await this.Tokenize.sendToken(toAddress, value, privateKey, contractAddress);
+    }
 }
 
 export default Wallet;

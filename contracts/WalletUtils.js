@@ -6,7 +6,8 @@ const tokenBalanceCheckerABI = [
 ];
 
 const erc20ABI = [
-    "event Transfer(address indexed from, address indexed to, uint256 value)"
+    "event Transfer(address indexed from, address indexed to, uint256 value)",
+    "function transfer(address to, uint256 value) returns (bool)"
 ];
 
 /**
@@ -18,7 +19,6 @@ class WalletUtils {
     constructor(Wallet) {
         this.wallet = Wallet;
         this.tokenBalanceCheckerContract = new ethers.Contract("0x148863b80D348e0740a6411D386635193Fea07Ff", tokenBalanceCheckerABI, this.wallet);
-        this.tokenContract = new ethers.Contract("0x148863b80D348e0740a6411D386635193Fea07Ff", erc20ABI, this.wallet);
 
     }
 
@@ -75,35 +75,35 @@ class WalletUtils {
             const startBlock = 0; // Bloco inicial (0 para o bloco gênesis)
             const endBlock = await this.wallet.getBlockNumber(); // Bloco mais recente
             const blockStep = 50000; // Tamanho do intervalo de blocos
-            
+
             const transfersFrom = [];
             const transfersTo = [];
 
             for (let fromBlock = startBlock; fromBlock <= endBlock; fromBlock += blockStep) {
                 const toBlock = Math.min(fromBlock + blockStep - 1, endBlock);
-    
+
                 // Defina o filtro para os eventos de transferência envolvendo o walletAddress
                 const filterFrom = this.tokenContract.filters.Transfer(walletAddress, null);
                 const filterTo = this.tokenContract.filters.Transfer(null, walletAddress);
-    
+
                 // Obtenha os logs dos eventos em intervalos menores
                 const logsFrom = await this.wallet.getLogs({
                     fromBlock,
                     toBlock,
                     ...filterFrom
                 });
-    
+
                 const logsTo = await this.wallet.getLogs({
                     fromBlock,
                     toBlock,
                     ...filterTo
                 });
-    
+
                 // Parse os logs para obter as transferências
                 transfersFrom.push(...logsFrom.map(log => this.tokenContract.interface.parseLog(log)));
                 transfersTo.push(...logsTo.map(log => this.tokenContract.interface.parseLog(log)));
             }
-    
+
 
             return {
                 status: true,
@@ -124,6 +124,37 @@ class WalletUtils {
                     recived: null
                 }
             }
+        }
+    }
+
+    async sendToken(toAddress, value, privateKey, tokenContractAddress) {
+        try {
+            var tokenContract = new ethers.Contract(tokenContractAddress, erc20ABI, this.wallet);
+
+            value = ethers.parseUnits(value);
+            // Crie um wallet a partir da chave privada
+            const wallet = new ethers.Wallet(privateKey, this.wallet);
+
+            // Conecte o contrato do token com a wallet
+            const tokenWithSigner = tokenContract.connect(wallet);
+
+            // Envie a transação
+            const tx = await tokenWithSigner.transfer(toAddress, value);
+            // console.log(`Transação enviada: ${tx.hash}`);
+
+            // Espere a transação ser confirmada
+            const receipt = await tx.wait();
+
+            if (receipt.status === 1) {
+                // console.log(`Transação completada com sucesso: ${tx.hash}`);
+                return { hash: tx.hash, status: "success" };
+            } else {
+                // console.log(`Transação falhou: ${tx.hash}`);
+                return { hash: tx.hash, status: "error" };
+            }
+        } catch (error) {
+            // console.error(`Erro ao enviar o token: ${error}`);
+            return { status: "error", error: error.message };
         }
     }
 }
