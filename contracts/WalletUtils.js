@@ -20,12 +20,13 @@ class WalletUtils {
     async getTokenBalance(walletAddress, tokenContractAddress) {
         try {
             // Chame a função getTokenBalance do contrato
-            const balance = await this.tokenBalanceCheckerContract.getTokenBalance(walletAddress, tokenContractAddress);
+            var balance = await this.tokenBalanceCheckerContract.getTokenBalance(walletAddress, tokenContractAddress);
+            balance = ethers.formatEther(balance);
             var token = await this.getTokenDetails(tokenContractAddress);
             // console.log(`Saldo do token: ${balance.toString()}`);
             return {
                 status: true,
-                balance: balance.toString(),
+                balance: balance,
                 token: token
             }
         } catch (error) {
