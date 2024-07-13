@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import { providers } from "../providers/ServiceProviders.js";
 // import GatewayConntract from "../contracts/Gateway.js";
 import TxGatewayClient from "../contracts/TxGateway.js";
+import WalletUtils from "../contracts/WalletUtils.js";
 
 class Wallet {
     /**
@@ -14,6 +15,7 @@ class Wallet {
         var provider = providers[network];
         this.wallet = new ethers.JsonRpcProvider(provider.providers[schema]);
         this.GatewayConntract = new TxGatewayClient(this.wallet);
+        this.Tokenize = new WalletUtils(this.wallet)
         this.provider = provider;
     }
 
@@ -53,21 +55,18 @@ class Wallet {
             const balance = await this.wallet.getBalance(address);
             var data = await this.GatewayConntract.getWalletInfo(address);
 
-            return [
-                {
-                    balance: ethers.formatEther(balance),
-                    provider: this.provider,
-                    data
-                }
-            ]
+            return {
+                balance: ethers.formatEther(balance),
+                provider: this.provider,
+                data
+            }
+
         } catch (error) {
-            return [
-                {
-                    balance: 0,
-                    provider: null,
-                    message: error.message
-                }
-            ]
+            return {
+                balance: 0,
+                provider: null,
+                message: error.message
+            }
         }
     }
 
@@ -175,6 +174,14 @@ class Wallet {
     async getTransaction(hash) {
         return await this.wallet.getTransaction(hash);
     }
+
+    async GetTokenDetails(address){
+        return await this.Tokenize.getTokenDetails(address);
+    } 
+
+    async GetTokenBalance(contractAddress, walletAddress){
+        return await this.Tokenize.getTokenBalance(walletAddress, contractAddress);
+    } 
 }
 
 export default Wallet;

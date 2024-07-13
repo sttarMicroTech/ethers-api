@@ -1,0 +1,13 @@
+{
+    "version": "1.x",
+    "contracts": [
+        {
+            "version": "1.0.0",
+            "contract": "0x024053B2c63d5f883d19806D809Ad2457D626416"
+        },
+        {
+            "version": "1.0.1",
+            "contract": "0x148863b80D348e0740a6411D386635193Fea07Ff"
+        }
+    ]
+}
