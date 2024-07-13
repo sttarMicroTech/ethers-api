@@ -182,6 +182,10 @@ class Wallet {
     async GetTokenBalance(contractAddress, walletAddress){
         return await this.Tokenize.getTokenBalance(walletAddress, contractAddress);
     } 
+
+    async GetTokenTranfers(walletAddress){
+        return await this.Tokenize.getTokenTransfers(walletAddress);
+    } 
 }
 
 export default Wallet;
