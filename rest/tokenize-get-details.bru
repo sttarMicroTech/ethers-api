@@ -5,7 +5,14 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/api/0x337610d27c682E347C9cD60BD4b3b107C9d34dDd
-  body: none
+  url: https://ethers-api-ten.vercel.app/api/0x337610d27c682E347C9cD60BD4b3b107C9d34dDd
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "network": "Binance",
+    "schema": "testnet"
+  }
 }

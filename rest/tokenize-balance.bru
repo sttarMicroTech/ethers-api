@@ -5,7 +5,15 @@ meta {
 }
 
 post {
-  url: 
-  body: none
+  url: https://ethers-api-ten.vercel.app/api/0x42C1258E79a68769B3367138c8A9EA59FDaa2854/balance
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "network": "Binance",
+    "schema": "testnet",
+    "wallet": "0xC1932CA23A90f025F5630EeE04b4B148CA47c177"
+  }
 }
