@@ -43,6 +43,7 @@ class WalletUtils {
             // Chame a função getTokenDetails do contrato
             var [name, symbol, decimals, totalSupply] = await this.tokenBalanceCheckerContract.getTokenDetails(tokenContractAddress);
             totalSupply = BigInt(totalSupply).toString();
+            decimals = BigInt(decimals).toString();
 
             console.log({
                 name, symbol, decimals, totalSupply
@@ -53,7 +54,7 @@ class WalletUtils {
                 name: name,
                 symbol: symbol,
                 totalSupply: totalSupply,
-                // decimals: decimals
+                decimals: decimals
             };
         } catch (error) {
             return {
