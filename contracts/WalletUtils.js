@@ -44,12 +44,16 @@ class WalletUtils {
             var [name, symbol, decimals, totalSupply] = await this.tokenBalanceCheckerContract.getTokenDetails(tokenContractAddress);
             totalSupply = BigInt(totalSupply).toString();
 
+            console.log({
+                name, symbol, decimals, totalSupply
+            })
+
             return {
                 status: true,
                 name: name,
                 symbol: symbol,
                 totalSupply: totalSupply,
-                decimals: decimals
+                // decimals: decimals
             };
         } catch (error) {
             return {
