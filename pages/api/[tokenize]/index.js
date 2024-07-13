@@ -20,8 +20,7 @@ export default async function (req, res) {
         var provider = new Wallet(network, schema);
         var wallet = await provider.GetTokenDetails(tokenize);
         return res.json({
-            status: true,
-            message: 'Get data with success!',
+            status: wallet.status,
             result: wallet
         });
     } else {
