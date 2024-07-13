@@ -16,13 +16,12 @@ export default async function (req, res) {
         var provider = new Wallet(network, schema);
         var wallet = await provider.GetTokenBalance(tokenize, wallet);
         return res.json({
-            status: true,
-            message: 'Get data with success!',
+            status: wallet.status,
             result: wallet
         });
     } else {
         return res.json({
-            status: true,
+            status: false,
             message: 'Only POST method is allowed',
             result: null
         });
