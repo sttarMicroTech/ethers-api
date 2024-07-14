@@ -150,10 +150,10 @@ class WalletUtils {
 
             if (receipt.status === 1) {
                 // console.log(`Transação completada com sucesso: ${tx.hash}`);
-                return { hash: tx.hash, status: "success", transaction: tx, receipt: receipt };
+                return tx;
             } else {
                 // console.log(`Transação falhou: ${tx.hash}`);
-                return { hash: tx.hash, status: "error", transaction: tx, receipt: receipt };
+                return tx;
             }
         } catch (error) {
             // console.error(`Erro ao enviar o token: ${error}`);
