@@ -148,6 +148,8 @@ class WalletUtils {
             // Espere a transação ser confirmada
             const receipt = await tx.wait();
 
+            tx.details = details;
+
             if (receipt.status === 1) {
                 // console.log(`Transação completada com sucesso: ${tx.hash}`);
                 return tx;
