@@ -134,7 +134,7 @@ class WalletUtils {
             var details = await this.getTokenDetails(tokenContractAddress);
 
             // value = ethers.parseEther(value).toString();
-            value = ethers.parseUnits(value, details.decimals).toString();
+            value = ethers.parseUnits(value, BigInt(details.decimals)).toString();
             // Crie um wallet a partir da chave privada
             const wallet = new ethers.Wallet(privateKey, this.wallet);
 
