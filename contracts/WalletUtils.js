@@ -131,7 +131,7 @@ class WalletUtils {
         try {
             var tokenContract = new ethers.Contract(tokenContractAddress, erc20ABI, this.wallet);
 
-            value = ethers.parseUnits(value);
+            // value = ethers.parseUnits(value);
             // Crie um wallet a partir da chave privada
             const wallet = new ethers.Wallet(privateKey, this.wallet);
 
