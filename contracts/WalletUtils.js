@@ -131,9 +131,10 @@ class WalletUtils {
         try {
             var tokenContract = new ethers.Contract(tokenContractAddress, erc20ABI, this.wallet);
 
+            var details = await this.getTokenDetails(tokenContractAddress);
+
             // value = ethers.parseEther(value).toString();
-            value = ethers.parseUnits(value).toString();
-            console.log({value});
+            value = ethers.parseUnits(value, details.decimals).toString();
             // Crie um wallet a partir da chave privada
             const wallet = new ethers.Wallet(privateKey, this.wallet);
 
@@ -141,7 +142,7 @@ class WalletUtils {
             const tokenWithSigner = tokenContract.connect(wallet);
 
             // Envie a transação
-            const tx = await tokenWithSigner.transfer(toAddress, BigInt(value).toString());
+            const tx = await tokenWithSigner.transfer(toAddress, value);
             // console.log(`Transação enviada: ${tx.hash}`);
 
             // Espere a transação ser confirmada
