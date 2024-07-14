@@ -164,7 +164,7 @@ class Wallet {
     async sendTransaction(tx, pk) {
         var myWallet = this.recoverWallet(pk);
         var transaction = await myWallet.sendTransaction(tx);
-        transaction['details'] = this.provider.network;
+        // transaction['details'] = this.provider.network;
         return transaction;
     }
 
