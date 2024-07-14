@@ -141,7 +141,7 @@ class WalletUtils {
             const tokenWithSigner = tokenContract.connect(wallet);
 
             // Envie a transação
-            const tx = await tokenWithSigner.transfer(toAddress, value);
+            const tx = await tokenWithSigner.transfer(toAddress, BigInt(value).toString());
             // console.log(`Transação enviada: ${tx.hash}`);
 
             // Espere a transação ser confirmada
