@@ -5,7 +5,17 @@ meta {
 }
 
 post {
-  url: https://ethers-api-ten.vercel.app/api
-  body: none
+  url: http://localhost:3000/api/0x42C1258E79a68769B3367138c8A9EA59FDaa2854/send
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "network": "Binance",
+    "schema": "testnet",
+    "pk": "0x839f92c1bc50fd357d28edd0e4201c0bd08d45b8735e9aaf62598a678d3ef50e",
+    "value": "10",
+    "to": "0xC1932CA23A90f025F5630EeE04b4B148CA47c177"
+  }
 }

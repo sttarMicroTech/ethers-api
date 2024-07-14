@@ -14,6 +14,7 @@ export const providers = {
         },
         "suportedTokens": [
             {
+                "id": 1,
                 "name": "Binance Smart Token",
                 "symbol": "BNB",
                 "default": true,
@@ -24,6 +25,7 @@ export const providers = {
                 }
             },
             {
+                "id": 2,
                 "name": "USD Tether",
                 "symbol": "USDT",
                 "default": false,
@@ -34,6 +36,7 @@ export const providers = {
                 }
             },
             {
+                "id": 3,
                 "name": "SttarPay Token",
                 "symbol": "SPT",
                 "default": false,
