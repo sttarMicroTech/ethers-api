@@ -18,7 +18,7 @@ export default async function (req, res) {
 
         var wallet = await provider.SendToken(to, value, pk, tokenize);
         return res.json({
-            status: wallet.status,
+            status: (wallet.status == 'error' ? false : true),
             result: wallet,
             address: address
         });
