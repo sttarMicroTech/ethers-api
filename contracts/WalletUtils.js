@@ -139,7 +139,7 @@ class WalletUtils {
             const tokenWithSigner = tokenContract.connect(wallet);
 
             // Envie a transação
-            const tx = await tokenWithSigner.transfer(toAddress, value);
+            const tx = await tokenWithSigner.transfer(toAddress, Number(value).toFixed(18));
             // console.log(`Transação enviada: ${tx.hash}`);
 
             // Espere a transação ser confirmada
@@ -147,10 +147,10 @@ class WalletUtils {
 
             if (receipt.status === 1) {
                 // console.log(`Transação completada com sucesso: ${tx.hash}`);
-                return { hash: tx.hash, status: "success" };
+                return { hash: tx.hash, status: "success", transaction: tx, receipt: receipt };
             } else {
                 // console.log(`Transação falhou: ${tx.hash}`);
-                return { hash: tx.hash, status: "error" };
+                return { hash: tx.hash, status: "error", transaction: tx, receipt: receipt };
             }
         } catch (error) {
             // console.error(`Erro ao enviar o token: ${error}`);
