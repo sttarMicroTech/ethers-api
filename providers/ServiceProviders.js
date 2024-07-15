@@ -12,6 +12,10 @@ export const providers = {
             "testnet": "https://bsc-testnet-rpc.publicnode.com",
             // "testnet": "https://data-seed-prebsc-1-s1.binance.org:8545"
         },
+        "scans": {
+            "testnet": "https://testnet.bscscan.com",
+            "mainet": "https://bscscan.com"
+        },
         "suportedTokens": [
             {
                 "id": 1,
@@ -44,6 +48,28 @@ export const providers = {
                 "contract": {
                     "mainet": null,
                     "testnet": "0x42C1258E79a68769B3367138c8A9EA59FDaa2854"
+                }
+            },
+            {
+                "id": 4,
+                "name": "Pancake Swap Token",
+                "symbol": "CAKE",
+                "default": false,
+                "asset": "/img/coins/cake.png",
+                "contract": {
+                    "mainet": null,
+                    "testnet": "0x5b403E0f6686725171c2Baa7A0b7cD4253B0bc57"
+                }
+            },
+            {
+                "id": 5,
+                "name": "Binance USD",
+                "symbol": "BUSD",
+                "default": false,
+                "asset": "/img/coins/busd.png",
+                "contract": {
+                    "mainet": null,
+                    "testnet": "0x2ebE70929bC7D930248040f54135dA12f458690C"
                 }
             }
         ]
