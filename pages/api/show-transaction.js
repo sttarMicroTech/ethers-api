@@ -3,7 +3,7 @@ import Utils from "../../utils/DefaultUtils.js";
 
 var utils = new Utils();
 
-export default function (req, res) {
+export default async function (req, res) {
     if (req.method == 'POST') {
         if (!utils.bodyValidation('show-transaction', req.body).status) {
             res.json(utils.bodyValidation('show-transaction', req.body));
@@ -12,7 +12,7 @@ export default function (req, res) {
 
         var { network, schema, hash } = req.body;
         var provider = new Wallet(network, schema);
-        var wallet = provider.getTransaction(hash);
+        var wallet = await provider.getTransaction(hash);
 
         return res.json({
             status: true,
