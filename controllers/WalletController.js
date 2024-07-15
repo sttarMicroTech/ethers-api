@@ -192,7 +192,7 @@ class Wallet {
         for (var tx of transactions) {
             console.log(`Hash: ${tx}`);
             var receipt = await this.wallet.getTransaction(tx);
-            receipt.value = ethers.parseUnits(receipt.value.toString());
+            receipt.value = ethers.formatEther(receipt.value);
             if (receipt.from == walletAddress) {
                 console.log(receipt);
                 receipts.push(receipt);
