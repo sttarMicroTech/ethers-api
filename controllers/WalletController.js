@@ -182,19 +182,43 @@ class Wallet {
         }
     }
 
-    async GetTokenDetails(tokenAddress){
+    async lastBlock(walletAddress = "") {
+        var block = await this.wallet.getBlockNumber();
+        var receipts = [];
+        var bring = await this.wallet.getBlock(block);
+        var transactions = bring.transactions;
+        console.log(`Block number: ${block}`);
+        for (var tx of transactions) {
+            console.log(`Hash: ${tx}`);
+            var receipt = await this.wallet.getTransaction(tx);
+            if (receipt.from == walletAddress) {
+                console.log(receipt);
+                receipts.push(receipt);
+            } else if (receipt.to == walletAddress) {
+                receipts.push(receipt);
+            } else if(walletAddress.length == 0){
+                receipts.push(receipt);
+            }
+        }
+
+        // console.log(transactions);
+        return receipts;
+    }
+
+    async GetTokenDetails(tokenAddress) {
         return await this.Tokenize.getTokenDetails(tokenAddress);
-    } 
+    }
 
-    async GetTokenBalance(contractAddress, walletAddress){
+    async GetTokenBalance(contractAddress, walletAddress) {
         return await this.Tokenize.getTokenBalance(walletAddress, contractAddress);
-    } 
+    }
 
-    async GetTokenTranfers(walletAddress){
+    async GetTokenTranfers(walletAddress) {
+        // return await this.lastBlock(walletAddress);
         return await this.Tokenize.getTokenTransfers(walletAddress);
-    } 
+    }
 
-    async SendToken(toAddress, value, privateKey, contractAddress){
+    async SendToken(toAddress, value, privateKey, contractAddress) {
         return await this.Tokenize.sendToken(toAddress, value, privateKey, contractAddress);
     }
 }

@@ -8,13 +8,14 @@ class Utils {
      */
     bodyValidation(route, body) {
         var schema = {
-            'create-wallet': ['network', 'schema'],
-            'recover-wallet': ['network', 'schema', 'pk'],
-            'get-balance': ['network', 'schema', 'wallet'],
-            'valid-address': ['network', 'schema', 'wallet'],
-            'send-transaction': ['network', 'schema', 'to', 'value', 'pk'],
-            'show-transaction': ['network', 'schema', 'hash'],
-            'tokenize-transfers': ['network', 'schema', 'wallet']
+            'create-wallet':        ['network', 'schema'],
+            'recover-wallet':       ['network', 'schema', 'pk'],
+            'get-balance':          ['network', 'schema', 'wallet'],
+            'valid-address':        ['network', 'schema', 'wallet'],
+            'last-block':           ['network', 'schema'],
+            'send-transaction':     ['network', 'schema', 'to', 'value', 'pk'],
+            'show-transaction':     ['network', 'schema', 'hash'],
+            'tokenize-transfers':   ['network', 'schema', 'wallet']
         };
 
         var keys = Object.keys(body);
