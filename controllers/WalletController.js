@@ -174,7 +174,12 @@ class Wallet {
      * @returns {Object}
      */
     async getTransaction(hash) {
-        return await this.wallet.getTransaction(hash);
+        try {
+            return await this.wallet.getTransaction(hash);
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
     }
 
     async GetTokenDetails(tokenAddress){
