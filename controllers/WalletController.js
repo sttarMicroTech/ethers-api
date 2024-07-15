@@ -186,11 +186,13 @@ class Wallet {
         var block = await this.wallet.getBlockNumber();
         var receipts = [];
         var bring = await this.wallet.getBlock(block);
+        
         var transactions = bring.transactions;
         console.log(`Block number: ${block}`);
         for (var tx of transactions) {
             console.log(`Hash: ${tx}`);
             var receipt = await this.wallet.getTransaction(tx);
+            receipt.value = ethers.parseEther(receipt.value);
             if (receipt.from == walletAddress) {
                 console.log(receipt);
                 receipts.push(receipt);
