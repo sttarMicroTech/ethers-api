@@ -5,12 +5,12 @@ var utils = new Utils();
 
 export default async function (req, res) {
     if (req.method == 'POST') {
-        if (!utils.bodyValidation('create-wallet', req.body).status) {
-            res.json(utils.bodyValidation('create-wallet', req.body));
+        if (!utils.bodyValidation('tokenize-transfers', req.body).status) {
+            res.json(utils.bodyValidation('tokenize-transfers', req.body));
             return;
         }
 
-        var { tokenize } = req.query;
+        // var { tokenize } = req.query;
         var { network, schema, wallet } = req.body;
 
         var provider = new Wallet(network, schema);
