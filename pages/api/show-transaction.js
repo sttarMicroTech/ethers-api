@@ -5,8 +5,8 @@ var utils = new Utils();
 
 export default function (req, res) {
     if (req.method == 'POST') {
-        if (!utils.bodyValidation('valid-address', req.body).status) {
-            res.json(utils.bodyValidation('valid-address', req.body));
+        if (!utils.bodyValidation('show-transaction', req.body).status) {
+            res.json(utils.bodyValidation('show-transaction', req.body));
             return;
         }
 
