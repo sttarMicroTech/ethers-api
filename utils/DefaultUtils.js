@@ -14,7 +14,7 @@ class Utils {
             'valid-address': ['network', 'schema', 'wallet'],
             'send-transaction': ['network', 'schema', 'to', 'value', 'pk'],
             'show-transaction': ['network', 'schema', 'hash'],
-            'tokenize-transfers': ['network', 'schema', 'hash']
+            'tokenize-transfers': ['network', 'schema', 'wallet']
         };
 
         var keys = Object.keys(body);

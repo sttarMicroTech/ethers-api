@@ -6,6 +6,14 @@ meta {
 
 post {
   url: https://ethers-api-ten.vercel.app/api/show-transaction
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "network": "Binance",
+    "schema": "testnet",
+    "hash": "0x87537f38baef9e798f94cf7dd9dcdc3f91d50c7d781c46b070f145c5345ffa21"
+  }
 }

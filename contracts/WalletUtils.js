@@ -83,8 +83,8 @@ class WalletUtils {
                 const toBlock = Math.min(fromBlock + blockStep - 1, endBlock);
 
                 // Defina o filtro para os eventos de transferência envolvendo o walletAddress
-                const filterFrom = this.tokenContract.filters.Transfer(walletAddress, null);
-                const filterTo = this.tokenContract.filters.Transfer(null, walletAddress);
+                const filterFrom = this.wallet.filters.Transfer(walletAddress, null);
+                const filterTo = this.wallet.filters.Transfer(null, walletAddress);
 
                 // Obtenha os logs dos eventos em intervalos menores
                 const logsFrom = await this.wallet.getLogs({
@@ -100,8 +100,8 @@ class WalletUtils {
                 });
 
                 // Parse os logs para obter as transferências
-                transfersFrom.push(...logsFrom.map(log => this.tokenContract.interface.parseLog(log)));
-                transfersTo.push(...logsTo.map(log => this.tokenContract.interface.parseLog(log)));
+                transfersFrom.push(...logsFrom.map(log => this.wallet.interface.parseLog(log)));
+                transfersTo.push(...logsTo.map(log => this.wallet.interface.parseLog(log)));
             }
 
 
