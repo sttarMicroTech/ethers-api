@@ -12,7 +12,8 @@ class Utils {
             'recover-wallet': ['network', 'schema', 'pk'],
             'get-balance': ['network', 'schema', 'wallet'],
             'valid-address': ['network', 'schema', 'wallet'],
-            'send-transaction': ['network', 'schema', 'to', 'value', 'pk']
+            'send-transaction': ['network', 'schema', 'to', 'value', 'pk'],
+            'show-transaction': ['network', 'schema', 'hash']
         };
 
         var keys = Object.keys(body);

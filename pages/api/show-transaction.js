@@ -21,7 +21,7 @@ export default function (req, res) {
         });
     } else {
         return res.json({
-            status: true,
+            status: false,
             message: 'Only POST method is allowed',
             result: null
         });
