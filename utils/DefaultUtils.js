@@ -15,7 +15,8 @@ class Utils {
             'last-block':           ['network', 'schema'],
             'send-transaction':     ['network', 'schema', 'to', 'value', 'pk'],
             'show-transaction':     ['network', 'schema', 'hash'],
-            'tokenize-transfers':   ['network', 'schema', 'wallet']
+            'tokenize-transfers':   ['network', 'schema', 'wallet'],
+            'tokenize-last-block':  ['network', 'schema']
         };
 
         var keys = Object.keys(body);

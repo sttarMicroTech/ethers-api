@@ -171,7 +171,7 @@ class Wallet {
     /**
      * Gera o comprovante de transação
      * @param {string} hash - ID ou Hash da transação
-     * @returns {Object}
+     * @returns {Promise<Object>}
      */
     async getTransaction(hash) {
         try {
@@ -182,15 +182,20 @@ class Wallet {
         }
     }
 
+    /**
+     * Obtem a lista de transações do ultimo bloco minerado
+     * @param {string} walletAddress - endereço da carteira
+     * @returns {Promise<array>}
+     */
     async lastBlock(walletAddress = "") {
         var block = await this.wallet.getBlockNumber();
         var receipts = [];
         var bring = await this.wallet.getBlock(block);
-        
+        // console.log(bring);
         var transactions = bring.transactions;
-        console.log(`Block number: ${block}`);
+        // console.log(`Block number: ${block}`);
         for (var tx of transactions) {
-            console.log(`Hash: ${tx}`);
+            // console.log(`Hash: ${tx}`);
             var receipt = await this.wallet.getTransaction(tx);
             receipt.value = ethers.formatEther(receipt.value);
             if (receipt.from == walletAddress) {
@@ -198,7 +203,7 @@ class Wallet {
                 receipts.push(receipt);
             } else if (receipt.to == walletAddress) {
                 receipts.push(receipt);
-            } else if(walletAddress.length == 0){
+            } else if (walletAddress.length == 0) {
                 receipts.push(receipt);
             }
         }
@@ -222,6 +227,45 @@ class Wallet {
 
     async SendToken(toAddress, value, privateKey, contractAddress) {
         return await this.Tokenize.sendToken(toAddress, value, privateKey, contractAddress);
+    }
+
+    async GetTokenLastBlock(tokenContractAddress) {
+        // Obter o número do último bloco
+        const latestBlock = await this.wallet.getBlockNumber();
+
+        // Configurar o filtro para os eventos de Transferência do token
+        const transferEventSignature = ethers.id("Transfer(address,address,uint256)");
+        const filter = {
+            address: tokenContractAddress,
+            fromBlock: latestBlock,
+            toBlock: latestBlock,
+            topics: [transferEventSignature]
+        };
+
+        // Obter os logs dos eventos
+        const logs = await this.wallet.getLogs(filter);
+
+        // Decodificar os logs
+        const iface = new ethers.Interface([
+            "event Transfer(address indexed from, address indexed to, uint256 value)"
+        ]);
+
+        // const transfers = logs.map(log => iface.parseLog(log));
+        // transfer.args.value.toString();
+        // Mapear os logs para obter os detalhes da transação, incluindo hash e valor em ether
+        const transfers = await Promise.all(logs.map(async log => {
+            const parsedLog = iface.parseLog(log);
+            const transaction = await this.wallet.getTransaction(log.transactionHash);
+            return {
+                from: parsedLog.args.from,
+                to: parsedLog.args.to,
+                value: parsedLog.args.value,
+                transactionHash: log.transactionHash,
+                etherValue: ethers.formatEther(transaction.value),
+                complete: log
+            };
+        }));
+        return transfers;
     }
 }
 
