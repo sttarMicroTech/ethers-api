@@ -259,7 +259,7 @@ class Wallet {
             return {
                 from: parsedLog.args.from,
                 to: parsedLog.args.to,
-                value: parsedLog.args.value,
+                value: BigInt(parsedLog.args.value).toString(),
                 transactionHash: log.transactionHash,
                 etherValue: ethers.formatEther(transaction.value),
                 complete: log
